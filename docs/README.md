@@ -10,7 +10,7 @@
 
 Whether you want to build apps for Linux, MacOS, Windows, iOS, Android, Tizen, Xbox, PS4, Raspberry Pi, Samsung TVs or much more, Parquet.Net has you covered.
 
-## Features at a glance
+# Features at a glance
 
 - 0️⃣ **Has zero dependencies** - pure library that just works anywhere .NET works i.e. desktops, servers, phones, watches and so on.
 - 🚀**Really fast.** Faster than Python and Java, and alternative C# implementations out there. It's often even faster than native C++ implementations.
@@ -23,6 +23,46 @@ Whether you want to build apps for Linux, MacOS, Windows, iOS, Android, Tizen, X
   - Provides **low-level**, high-level, and untyped API.
   - Access to file and column metadata
   - [Integration with DataFrames](#dataframe-support) (`Microsoft.Data.Analysis`).
+
+# Table of Contents
+
+<!-- TOC depthfrom:2 -->
+
+- [Quick start](#quick-start)
+    - [Low level API](#low-level-api)
+    - [High level API](#high-level-api)
+- [Customising serialization](#customising-serialization)
+    - [Structures](#structures)
+    - [Lists](#lists)
+    - [Maps](#maps)
+    - [Legacy Repeatable](#legacy-repeatable)
+    - [Supported collection types](#supported-collection-types)
+    - [Appending to files](#appending-to-files)
+    - [Specifying row group size](#specifying-row-group-size)
+    - [Ignoring property casing](#ignoring-property-casing)
+- [Extra options](#extra-options)
+- [Appending to files](#appending-to-files)
+- [Parallelism](#parallelism)
+- [Internals](#internals)
+    - [DataColumn](#datacolumn)
+    - [Schema](#schema)
+        - [Lists](#lists)
+        - [Lists of primitive types](#lists-of-primitive-types)
+        - [Lists of structs](#lists-of-structs)
+        - [Special cases](#special-cases)
+    - [Nested types](#nested-types)
+        - [Structs](#structs)
+        - [Lists and Arrays](#lists-and-arrays)
+        - [Lists](#lists)
+        - [Lists of Structs](#lists-of-structs)
+        - [Maps](#maps)
+    - [Untyped Serializer](#untyped-serializer)
+- [DataFrame Support](#dataframe-support)
+- [Used by](#used-by)
+- [Contributing](#contributing)
+- [Special thanks](#special-thanks)
+
+<!-- /TOC -->
 
 ## Quick start
 
@@ -926,7 +966,7 @@ await ParquetSerializer.SerializeAsync(schema, data, stream);
 
 For more examples, see `ParquetSerializerTests.cs` in the codebase. The documentation will evolve as this API gets more stable.
 
-## DataFrame Support
+## `DataFrame` Support
 
 [`Microsoft.Data.Analysis`](https://www.nuget.org/packages/Microsoft.Data.Analysis) is supported via additional [NuGet package](https://www.nuget.org/packages/Parquet.Net.Data.Analysis). Due to `DataFrame` being in general less functional than Parquet, only primitive (atomic) columns are supported at the moment. If `DataFrame` supports more functionality in future (see related links below), this integration can be extended. When reading and writing, this integration will ignore any columns that are not atomic (primitive). You only need to call `WriteAsync()` extension method on `DataFrame` and specify the destination stream to write it to, similarly you can use `System.IO.Stream`'s extension method to read from parquet stream into `DataFrame`
 
